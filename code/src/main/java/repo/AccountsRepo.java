@@ -1,4 +1,5 @@
 package repo;
+
 import model.Compte;
 import utils.ControllersGetter;
 
@@ -8,11 +9,11 @@ import java.util.Optional;
 
 public class AccountsRepo {
 
-    private Connection connection;
+    private final Connection connection;
 
     public AccountsRepo() {
 
-            this.connection = ControllersGetter.dbConnexion.getConnection();
+        this.connection = ControllersGetter.dbConnexion.getConnection();
 
     }
 
@@ -42,14 +43,13 @@ public class AccountsRepo {
             throw new SQLException("An error occurred while retrieving account: " + e.getMessage(), e);
 
 
-
         }
 
         return Optional.empty();
     }
 
 
-    public Optional<Compte> getCompteById(String  id) throws SQLException {
+    public Optional<Compte> getCompteById(String id) throws SQLException {
         if (connection == null) {
             throw new SQLException("Database connection is not available.");
         }
@@ -137,11 +137,10 @@ public class AccountsRepo {
     }
 
 
-    public ArrayList<Compte> getAccountsNoExp(){
+    public ArrayList<Compte> getAccountsNoExp() {
         try {
-         return  getAccounts();
-        }
-        catch (SQLException e) {
+            return getAccounts();
+        } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("An error occurred while retrieving accounts: " + e.getMessage());
             System.exit(1);
@@ -150,6 +149,7 @@ public class AccountsRepo {
 
         return null;
     }
+
     public boolean addAccount(Compte compte) throws SQLException {
         if (connection == null) {
             throw new SQLException("Database connection is not available.");
@@ -180,7 +180,7 @@ public class AccountsRepo {
     }
 
     // Method to update an account in the database
-    public boolean updateAccount(String accountId,Compte updatedAccount) throws SQLException {
+    public boolean updateAccount(String accountId, Compte updatedAccount) throws SQLException {
         if (connection == null) {
             throw new SQLException("Database connection is not available.");
         }

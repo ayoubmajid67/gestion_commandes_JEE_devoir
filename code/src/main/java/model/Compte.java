@@ -1,8 +1,9 @@
 package model;
 
 
-import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.UUID;
 
 public class Compte {
     private final String id;

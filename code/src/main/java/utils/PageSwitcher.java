@@ -1,7 +1,6 @@
 package utils;
 
 
-
 import controller.businessControllers.account.AccountSessionHandler;
 
 import javax.swing.*;
@@ -10,12 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
 public class PageSwitcher {
-    private JFrame frame;
-  static    private JPanel mainPanel;
+    static private JPanel mainPanel;
     static private CardLayout cardLayout;
-   static   private Map<String, JPanel> pages; // Map to store pages by name
+    static private Map<String, JPanel> pages; // Map to store pages by name
+    private final JFrame frame;
 
 
     public PageSwitcher() {
@@ -33,11 +31,9 @@ public class PageSwitcher {
 
 
         // Add pages
-        addPage("login", PagesGetter.LoginPage );
-        addPage("adminDashboard", PagesGetter.AdminDashBoardPage );
+        addPage("login", PagesGetter.LoginPage);
+        addPage("adminDashboard", PagesGetter.AdminDashBoardPage);
         addPage("userDashboard", PagesGetter.userDashboardPage);
-
-
 
 
         // Add the main panel to the frame
@@ -46,29 +42,6 @@ public class PageSwitcher {
         frame.setVisible(true);
 
         handleFirstPageLoading();
-    }
-
-    private void  handleFirstPageLoading(){
-        // Set the initial page
-        if(ControllersGetter.currentAccountSession==null){
-            switchPage("login");
-        }
-        else if(ControllersGetter.currentAccountSession.isAdmin()){
-
-            switchPage("adminDashboard");
-            PagesGetter.AdminDashBoardPage.reloadTaps();
-        }
-        else {
-            switchPage("userDashboard");
-            PagesGetter.userDashboardPage.reloadTabs();
-        }
-
-    }
-
-    // Method to add a page
-    private void addPage(String name, JPanel page) {
-        pages.put(name, page);
-        mainPanel.add(page, name);
     }
 
     // Method to switch between pages
@@ -81,10 +54,29 @@ public class PageSwitcher {
         }
     }
 
-
-
     public static void main(String[] args) {
         PageSwitcher pageSwitcher = new PageSwitcher();
 //        SwingUtilities.invokeLater(PageSwitcher::new);
+    }
+
+    private void handleFirstPageLoading() {
+        // Set the initial page
+        if (ControllersGetter.currentAccountSession == null) {
+            switchPage("login");
+        } else if (ControllersGetter.currentAccountSession.isAdmin()) {
+
+            switchPage("adminDashboard");
+            PagesGetter.AdminDashBoardPage.reloadTaps();
+        } else {
+            switchPage("userDashboard");
+            PagesGetter.userDashboardPage.reloadTabs();
+        }
+
+    }
+
+    // Method to add a page
+    private void addPage(String name, JPanel page) {
+        pages.put(name, page);
+        mainPanel.add(page, name);
     }
 }

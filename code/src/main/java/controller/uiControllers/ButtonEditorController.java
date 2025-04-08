@@ -1,47 +1,42 @@
 package controller.uiControllers;
 
 import utils.interfaces.IButtonEditorEventsHandler;
-import utils.interfaces.IFormDialogEventHandler;
 import view.pages.AdminDashboard.AccountsManagementTab;
 import view.pages.UserDashboard.ButtonEditor;
-import view.pages.UserDashboard.FormDialog;
 
 public class ButtonEditorController {
-    private ButtonEditor view;
-    private FormDialog createAuditorForm;
+    private final ButtonEditor view;
 
-    private  IFormDialogEventHandler iFormDialogEditEventHandler;
-    private  IFormDialogEventHandler iFormDialogDeleteEventHandler;
-    private IButtonEditorEventsHandler iButtonEditorEditEventHandler;
+    private final IButtonEditorEventsHandler iButtonEditorEditEventHandler;
+
     public ButtonEditorController(ButtonEditor view, IButtonEditorEventsHandler iButtonEditorEventsHandler) {
         this.view = view;
         this.iButtonEditorEditEventHandler = iButtonEditorEventsHandler;
 
         controllers();
     }
-    public void controllers(){
-        addEditAuditorButtonEvent();
-        addDeleteAuditorButtonEvent();
+
+    public void controllers() {
+        addEditUserButtonEvent();
+        addDeleteUserButtonEvent();
     }
 
-    private void addEditAuditorButtonEvent() {
+    private void addEditUserButtonEvent() {
 
         view.getEditButton().addActionListener(ActionEvent -> {
-           String[] columnNames = AccountsManagementTab.getColumnNamesCreateEdit();
-//            createAuditorForm =  new FormDialog(" Edit",columnNames,view.getRowData(), iFormDialogEditEventHandler);
+            String[] columnNames = AccountsManagementTab.getColumnNamesCreateEdit();
+
 
             iButtonEditorEditEventHandler.editObjectEventHandler(view);
 
         });
     }
-    private void addDeleteAuditorButtonEvent() {
+
+    private void addDeleteUserButtonEvent() {
 
 
         view.getDeleteButton().addActionListener(ActionEvent -> {
-            String[]   columnNames = AccountsManagementTab.getColumnNamesCreateEdit();
-
-//            JFrame parentFrame = new JFrame("Edit auditor");
-//            Object[] Column = view.getRowData();
+            String[] columnNames = AccountsManagementTab.getColumnNamesCreateEdit();
 
             iButtonEditorEditEventHandler.deleteObjectEventHandler(view);
 

@@ -5,17 +5,9 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
 public class ButtonRenderer extends JPanel implements TableCellRenderer {
-    private JButton editButton ;
-    private JButton deleteButton ;
+    private final JButton editButton;
+    private final JButton deleteButton;
 
-
-    public JButton getEditButton() {
-        return editButton;
-    }
-
-    public JButton getDeleteButton() {
-        return deleteButton;
-    }
 
     public ButtonRenderer() {
         setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0)); // Add spacing between buttons
@@ -40,6 +32,14 @@ public class ButtonRenderer extends JPanel implements TableCellRenderer {
         // Add buttons to the panel
         add(editButton);
         add(deleteButton);
+    }
+
+    public JButton getEditButton() {
+        return editButton;
+    }
+
+    public JButton getDeleteButton() {
+        return deleteButton;
     }
 
     @Override

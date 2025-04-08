@@ -1,7 +1,6 @@
 package controller.uiControllers.UserDashboard.Tabs;
 
 import model.Commande;
-import repo.CommandeRepo;
 import utils.ControllersGetter;
 import utils.SaveUtil;
 import utils.interfaces.IButtonEditorEventsHandler;
@@ -12,17 +11,15 @@ import view.pages.UserDashboard.FormDialog;
 import view.pages.UserDashboard.UserCommandsManagementTab;
 
 import javax.swing.*;
-
 import java.sql.SQLException;
-
 
 
 public class UserCommandsManagementTabController {
     private UserCommandsManagementTab view;
     private FormDialog createCommandeForm;
     private FormDialog editCommandeForm;
-    private String[] columnNames = UserCommandsManagementTab.getColumnNamesCreateEdit();
-    private SaveUtil<Commande> saveUtil = new SaveUtil(new CommandeConverter());
+    private final String[] columnNames = UserCommandsManagementTab.getColumnNamesCreateEdit();
+    private final SaveUtil<Commande> saveUtil = new SaveUtil(new CommandeConverter());
     private String currentUserId; // Store current user ID from AccountToken
 
     public UserCommandsManagementTabController(UserCommandsManagementTab view) {
@@ -54,14 +51,14 @@ public class UserCommandsManagementTabController {
         });
     }
 
-    private IFormDialogEventHandler saveEditCommandeIFormEventHandler = (formDialog) -> {
+    public IButtonEditorEventsHandler getIButtonEditorEventsHandler() {
+        return iButtonEditorEventsHandler;
+    }    private final IFormDialogEventHandler saveEditCommandeIFormEventHandler = (formDialog) -> {
         try {
             if (formDialog.validateForm()) {
 
                 Commande commande = saveUtil.saveFormData(formDialog.getFormData());
                 commande.setIdCompte(currentUserId);
-
-
 
 
                 ControllersGetter.CommandeRepo.editCommande(formDialog.getId(), commande);
@@ -101,7 +98,9 @@ public class UserCommandsManagementTabController {
         }
     };
 
-    private IFormDialogEventHandler saveCreateCommandeIFormEventHandler = (formDialog) -> {
+    public IFormDialogEventHandler getSaveCreateCommandeIFormEventHandler() {
+        return saveCreateCommandeIFormEventHandler;
+    }    private final IFormDialogEventHandler saveCreateCommandeIFormEventHandler = (formDialog) -> {
         try {
             if (formDialog.validateForm()) {
                 System.out.println("data" + formDialog.getFormData());
@@ -137,7 +136,7 @@ public class UserCommandsManagementTabController {
         }
     };
 
-    private IButtonEditorEventsHandler iButtonEditorEventsHandler = new IButtonEditorEventsHandler() {
+    private final IButtonEditorEventsHandler iButtonEditorEventsHandler = new IButtonEditorEventsHandler() {
         @Override
         public void editObjectEventHandler(ButtonEditor view) {
             if (belongsToCurrentUser(view.getId())) {
@@ -187,11 +186,7 @@ public class UserCommandsManagementTabController {
         }
     };
 
-    public IButtonEditorEventsHandler getIButtonEditorEventsHandler() {
-        return iButtonEditorEventsHandler;
-    }
 
-    public IFormDialogEventHandler getSaveCreateCommandeIFormEventHandler() {
-        return saveCreateCommandeIFormEventHandler;
-    }
+
+
 }

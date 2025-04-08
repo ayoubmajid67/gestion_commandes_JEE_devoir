@@ -3,8 +3,8 @@ package view.pages.AdminDashboard;
 
 import controller.uiControllers.adminDashboard.Tabs.AdminCommandsManagementTabController;
 import model.Commande;
-import utils.TableConverterUtility;
 import utils.ControllersGetter;
+import utils.TableConverterUtility;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -12,13 +12,12 @@ import java.awt.*;
 import java.util.List;
 
 public class AdminCommandsManagementTab extends JPanel {
+    private static final String[] columnNamesViewOnly = {"ID", "Date", "Montant", "IdCompte"};
     Color primaryColor = new Color(41, 128, 185);  // Blue primary color
-
-    private List<Commande> data = ControllersGetter.CommandeRepo.getAllCommandesNoExp();
-    private AdminCommandsManagementTabController commandsManagementTabController;
-    private static String[] columnNamesViewOnly = {"ID", "Date", "Montant", "IdCompte"};
     DefaultTableModel model;
     JTable CommandeTable;
+    private List<Commande> data = ControllersGetter.CommandeRepo.getAllCommandesNoExp();
+    private final AdminCommandsManagementTabController commandsManagementTabController;
 
     public AdminCommandsManagementTab() {
         commandsManagementTabController = new AdminCommandsManagementTabController(this);
@@ -84,20 +83,5 @@ public class AdminCommandsManagementTab extends JPanel {
 
         // Repaint the table to reflect the changes
         CommandeTable.repaint();
-    }
-
-    public static void main(String[] args) {
-        // Create a JFrame to display the AuditorManagementTab
-        JFrame frame = new JFrame("Orders Management");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1024, 768);
-        frame.setLocationRelativeTo(null); // Center the frame
-
-        // Add the CommandeManagementTab panel to the frame
-        AdminCommandsManagementTab adminCommandsManagementTab = new AdminCommandsManagementTab();
-        frame.add(adminCommandsManagementTab);
-
-        // Display the frame
-        frame.setVisible(true);
     }
 }

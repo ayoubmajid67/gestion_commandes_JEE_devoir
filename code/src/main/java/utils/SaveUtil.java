@@ -1,10 +1,11 @@
 package utils;
 
 import utils.interfaces.objectConverter.ObjectConverter;
+
+import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.lang.reflect.Method;
 import java.util.Map;
 
 public class SaveUtil<T> {
@@ -78,8 +79,9 @@ public class SaveUtil<T> {
                 return sdf.parse(value); // This will parse the string value into a Date object
             } catch (ParseException e) {
                 // If the date format is incorrect, throw an exception with a descriptive message
-                throw new IllegalArgumentException("Invalid date format: " + value, e);}
-            } else {
+                throw new IllegalArgumentException("Invalid date format: " + value, e);
+            }
+        } else {
             throw new IllegalArgumentException("Unsupported type: " + type);
         }
     }

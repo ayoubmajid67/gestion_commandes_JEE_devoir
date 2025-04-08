@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class CommandeRepo {
 
-    private Connection connection;
+    private final Connection connection;
 
     public CommandeRepo() {
         this.connection = ControllersGetter.dbConnexion.getConnection();
@@ -22,13 +22,11 @@ public class CommandeRepo {
         }
 
 
-
-        String query = "INSERT INTO Commande (id, date, montant, id_Compte) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO Commande (date, montant, id_Compte) VALUES ( ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, commande.getId());
-            preparedStatement.setDate(2, new java.sql.Date(commande.getDate().getTime()));
-            preparedStatement.setDouble(3, commande.getmontant());
-            preparedStatement.setString(4, commande.getidCompte());
+            preparedStatement.setDate(1, new java.sql.Date(commande.getDate().getTime()));
+            preparedStatement.setDouble(2, commande.getmontant());
+            preparedStatement.setString(3, commande.getidCompte());
 
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
@@ -61,6 +59,7 @@ public class CommandeRepo {
         }
         return Optional.empty();
     }
+
     // Get User commandes
     public ArrayList<Commande> getUserCommandes() throws SQLException {
         ArrayList<Commande> commandes = new ArrayList<>();
@@ -79,7 +78,7 @@ public class CommandeRepo {
                 while (resultSet.next()) {
 
                     String id = resultSet.getString("id");
-                    String   date =   resultSet.getString("date");
+                    String date = resultSet.getString("date");
                     double montant = resultSet.getDouble("montant");
                     String idCompte = resultSet.getString("id_Compte");
 
@@ -92,6 +91,7 @@ public class CommandeRepo {
 
         return commandes;
     }
+
     // Get all commandes
     public ArrayList<Commande> getAllCommandes() throws SQLException {
         ArrayList<Commande> commandes = new ArrayList<>();
@@ -182,6 +182,7 @@ public class CommandeRepo {
             throw new SQLException("Error deleting commande: " + e.getMessage(), e);
         }
     }
+
     public void editCommande(String id, Commande updatedCommande) throws Exception {
         String query = "UPDATE  commande  SET date = ?, montant = ?, id_Compte = ? WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {

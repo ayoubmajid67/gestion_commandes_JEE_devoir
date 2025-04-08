@@ -2,11 +2,10 @@ package view.pages.UserDashboard;
 
 import controller.uiControllers.UserDashboard.UserDashboardController;
 import utils.PageSwitcher;
+
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -15,7 +14,23 @@ public class UserDashboard extends JPanel {
     private JButton logoutButton;
     private UserCommandsManagementTab userCommandsManagementTab;
 
-    public UserDashboard() {}
+    public UserDashboard() {
+    }
+
+    public static void main(String[] args) {
+        // Create a JFrame to display the UserDashboard
+        JFrame frame = new JFrame("User Dashboard");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1024, 768);
+        frame.setLocationRelativeTo(null); // Center the frame
+
+        // Add the UserDashboard panel to the frame
+        UserDashboard userDashboard = new UserDashboard();
+        frame.add(userDashboard);
+
+        // Display the frame
+        frame.setVisible(true);
+    }
 
     public UserCommandsManagementTab getUserCommandsManagementTab() {
         return userCommandsManagementTab;
@@ -99,6 +114,7 @@ public class UserDashboard extends JPanel {
                 public void mouseEntered(MouseEvent e) {
                     setBackground(new Color(38, 80, 108));
                 }
+
                 public void mouseExited(MouseEvent e) {
                     setBackground(accentColor);
                 }
@@ -213,20 +229,5 @@ public class UserDashboard extends JPanel {
         protected void paintContentBorder(Graphics g, int tabPlacement, int selectedIndex) {
             // No content border
         }
-    }
-
-    public static void main(String[] args) {
-        // Create a JFrame to display the UserDashboard
-        JFrame frame = new JFrame("User Dashboard");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1024, 768);
-        frame.setLocationRelativeTo(null); // Center the frame
-
-        // Add the UserDashboard panel to the frame
-        UserDashboard userDashboard = new UserDashboard();
-        frame.add(userDashboard);
-
-        // Display the frame
-        frame.setVisible(true);
     }
 }

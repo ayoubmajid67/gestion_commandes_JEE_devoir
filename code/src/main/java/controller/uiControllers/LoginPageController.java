@@ -1,16 +1,13 @@
 package controller.uiControllers;
 
 import controller.businessControllers.account.AccountSessionHandler;
-import model.Accounts.Account;
 import model.Compte;
+import utils.ControllersGetter;
 import utils.PageSwitcher;
 import utils.PagesGetter;
 import view.pages.LoginPage;
 
-
 import javax.swing.*;
-import utils.ControllersGetter;
-
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -37,36 +34,34 @@ public class LoginPageController {
         }
 
 
-  try {
-      Optional<Compte>  accountOpt = ControllersGetter.accountsRepo.getCompte(email,password);
+        try {
+            Optional<Compte> accountOpt = ControllersGetter.accountsRepo.getCompte(email, password);
 
 
-      Compte account = null;
-      if (accountOpt.isPresent()) {
-          account = accountOpt.get();
-      }
+            Compte account = null;
+            if (accountOpt.isPresent()) {
+                account = accountOpt.get();
+            }
 
-      if (account != null) {
-          AccountSessionHandler.UpdateCurrentAccountSession(account.getId(),account.getCompteType());
-          if(account.isAdmin())
-              PageSwitcher.switchPage("adminDashboard");
-          PagesGetter.AdminDashBoardPage.reloadTaps();
+            if (account != null) {
+                AccountSessionHandler.UpdateCurrentAccountSession(account.getId(), account.getCompteType());
+                if (account.isAdmin())
+                    PageSwitcher.switchPage("adminDashboard");
+                PagesGetter.AdminDashBoardPage.reloadTaps();
 
-          if(account.isUser()){
-              PageSwitcher.switchPage("userDashboard");
-              PagesGetter.userDashboardPage.reloadTabs();
-
-
+                if (account.isUser()) {
+                    PageSwitcher.switchPage("userDashboard");
+                    PagesGetter.userDashboardPage.reloadTabs();
 
 
-          }
+                }
 
-      } else {
-          JOptionPane.showMessageDialog(view, "Invalid credentials!", "Error", JOptionPane.ERROR_MESSAGE);
-      }
-  }catch (SQLException e){
-      JOptionPane.showMessageDialog(view, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-  }
+            } else {
+                JOptionPane.showMessageDialog(view, "Invalid credentials!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(view, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
 
     }

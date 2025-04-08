@@ -1,12 +1,10 @@
 package view.pages.AdminDashboard;
 
 import controller.uiControllers.adminDashboard.AdminDashboardController;
-import view.pages.UserDashboard.UserDashboard;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
 import java.awt.*;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -14,15 +12,16 @@ public class AdminDashboard extends JPanel {
 
     private AdminDashboardController adminDashboardController;
     private JButton logoutButton;
-    private AccountsManagementTab accountsManagementTab ;
-    private AdminCommandsManagementTab adminCommandsManagementTab ;
+    private AccountsManagementTab accountsManagementTab;
+    private AdminCommandsManagementTab adminCommandsManagementTab;
 
     public AdminDashboard() {
 
     }
-    public void reloadTaps(){
-        adminCommandsManagementTab= new AdminCommandsManagementTab();
-        accountsManagementTab= new AccountsManagementTab();
+
+    public void reloadTaps() {
+        adminCommandsManagementTab = new AdminCommandsManagementTab();
+        accountsManagementTab = new AccountsManagementTab();
         setUpUi();
         adminDashboardController = new AdminDashboardController(this);
 
@@ -98,6 +97,7 @@ public class AdminDashboard extends JPanel {
                 public void mouseEntered(MouseEvent e) {
                     setBackground(new Color(38, 80, 108));
                 }
+
                 public void mouseExited(MouseEvent e) {
                     setBackground(accentColor);
                 }
@@ -119,6 +119,7 @@ public class AdminDashboard extends JPanel {
                 g2d.fillRect(0, 0, getWidth(), getHeight());
                 g2d.dispose();
             }
+
             @Override
             public void updateUI() {
                 super.updateUI();

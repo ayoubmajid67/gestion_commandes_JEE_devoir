@@ -2,7 +2,7 @@ package controller.uiControllers.adminDashboard.Tabs;
 
 
 import model.Compte;
-import  utils.SaveUtil;
+import utils.SaveUtil;
 import utils.interfaces.IButtonEditorEventsHandler;
 import utils.interfaces.IFormDialogEventHandler;
 import utils.interfaces.objectConverter.CompteConverter;
@@ -10,23 +10,24 @@ import view.pages.AdminDashboard.AccountsManagementTab;
 import view.pages.UserDashboard.ButtonEditor;
 import view.pages.UserDashboard.FormDialog;
 
-
 import javax.swing.*;
-
 import java.sql.SQLException;
-
 
 import static utils.ControllersGetter.accountsRepo;
 
 public class AccountsManagementTabController {
     private AccountsManagementTab view;
-    private FormDialog createAuditorForm;
-    private FormDialog editAuditorForm;
-    private String[] columnNames = AccountsManagementTab.getColumnNamesCreateEdit();
-    private SaveUtil<Compte> saveUtil = new SaveUtil(new CompteConverter());
+    private FormDialog createAccountForm;
+    private FormDialog editAccountForm;
+    private final String[] columnNames = AccountsManagementTab.getColumnNamesCreateEdit();
+    private final SaveUtil<Compte> saveUtil = new SaveUtil(new CompteConverter());
 
 
-    private IButtonEditorEventsHandler iButtonEditorEventsHandler = new IButtonEditorEventsHandler() {
+    public AccountsManagementTabController(AccountsManagementTab view) {
+        this.view = view;
+        initController();
+
+    }    private final IButtonEditorEventsHandler iButtonEditorEventsHandler = new IButtonEditorEventsHandler() {
 
 
         @Override
@@ -34,9 +35,7 @@ public class AccountsManagementTabController {
             String[] columnNames = AccountsManagementTab.getColumnNamesCreateEdit();
 
 
-
-
-            editAuditorForm =  new FormDialog(" Edit",columnNames,view.getRowData(), SaveEditAccountIFormEventHandler,view.getId());
+            editAccountForm = new FormDialog(" Edit", columnNames, view.getRowData(), SaveEditAccountIFormEventHandler, view.getId());
         }
 
         @Override
@@ -67,14 +66,16 @@ public class AccountsManagementTabController {
         }
     };
 
-    private IFormDialogEventHandler SaveEditAccountIFormEventHandler = (formDialog)->{
+    public IButtonEditorEventsHandler getIButtonEditorEventsHandler() {
+        return iButtonEditorEventsHandler;
+    }    private final IFormDialogEventHandler SaveEditAccountIFormEventHandler = (formDialog) -> {
         try {
             if (formDialog.validateForm()) {
 
                 Compte account = saveUtil.saveFormData(formDialog.getFormData()); // Save form data
 
                 System.out.println(account);
-                accountsRepo.updateAccount(formDialog.getId(),account);
+                accountsRepo.updateAccount(formDialog.getId(), account);
 
 
                 // Show success message
@@ -99,7 +100,7 @@ public class AccountsManagementTabController {
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(
-                    editAuditorForm,
+                    editAccountForm,
                     "An error occurred: " + e.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE
@@ -107,18 +108,18 @@ public class AccountsManagementTabController {
         }
     };
 
-
-    public IButtonEditorEventsHandler getIButtonEditorEventsHandler() {
-        return iButtonEditorEventsHandler;
+    private void initController() {
+        addCreatAccountButtonEvent();
     }
 
+    private void addCreatAccountButtonEvent() {
+        view.getCreateButton().addActionListener(ActionEvent -> {
+            createAccountForm = new FormDialog("Create Account", columnNames, saveCreateAccountIFormEventHandler);
 
-    public AccountsManagementTabController(AccountsManagementTab view) {
-        this.view = view;
-        initController();
-
+        });
     }
-    private IFormDialogEventHandler saveCreateAccountIFormEventHandler = (formDialog)->{
+
+    private final IFormDialogEventHandler saveCreateAccountIFormEventHandler = (formDialog) -> {
         try {
             if (formDialog.validateForm()) {
                 Compte account = saveUtil.saveFormData(formDialog.getFormData());
@@ -127,7 +128,7 @@ public class AccountsManagementTabController {
 
                 // Show success message
                 JOptionPane.showMessageDialog(
-                        createAuditorForm,
+                        createAccountForm,
                         "New Account added successfully!",
                         "Success",
                         JOptionPane.INFORMATION_MESSAGE
@@ -139,7 +140,7 @@ public class AccountsManagementTabController {
                 formDialog.dispose();
             } else {
                 JOptionPane.showMessageDialog(
-                        createAuditorForm,
+                        createAccountForm,
                         "Please fill in all fields.",
                         "Error",
                         JOptionPane.ERROR_MESSAGE
@@ -148,7 +149,7 @@ public class AccountsManagementTabController {
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(
-                    createAuditorForm,
+                    createAccountForm,
                     "An error occurred: " + e.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE
@@ -156,13 +157,7 @@ public class AccountsManagementTabController {
         }
     };
 
-    private void initController() {
-        addCreatAccountButtonEvent();
-    }
-    private void addCreatAccountButtonEvent() {
-        view.getCreateButton().addActionListener(ActionEvent -> {
-            createAuditorForm= new FormDialog("Create Account", columnNames, saveCreateAccountIFormEventHandler);
 
-        });
-    }
+
+
 }

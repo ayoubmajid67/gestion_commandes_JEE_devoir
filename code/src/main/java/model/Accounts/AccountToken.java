@@ -1,7 +1,6 @@
 package model.Accounts;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class AccountToken {
 
@@ -9,19 +8,20 @@ public class AccountToken {
     private final String accountType;
     private final String token;
 
-    AccountToken(){
-       idAccountToken ="unknown";
-       accountType="unknown";
-        token="unknown";
-    }
-    public String getIdAccountToken() {
-        return idAccountToken;
+    AccountToken() {
+        idAccountToken = "unknown";
+        accountType = "unknown";
+        token = "unknown";
     }
 
     public AccountToken(String idAccountToken, String accountType, String Token) {
         this.idAccountToken = idAccountToken;
         this.accountType = accountType;
         this.token = Token;
+    }
+
+    public String getIdAccountToken() {
+        return idAccountToken;
     }
 
     public String getToken() {
@@ -32,15 +32,13 @@ public class AccountToken {
     public String getAccountType() {
         return accountType;
     }
-    @JsonIgnore
-    public boolean isAdmin(){
 
-        return  accountType.equals("admin");
+    @JsonIgnore
+    public boolean isAdmin() {
+
+        return accountType.equals("admin");
     }
-    @JsonIgnore // Exclude from JSON serialization
-    public boolean isAuditor(){
-        return  accountType.equals("auditor");
-    }
+
 
     @Override
     public String toString() {
@@ -50,8 +48,6 @@ public class AccountToken {
                 ", token='" + token + '\'' +
                 '}';
     }
-
-
 
 
 }

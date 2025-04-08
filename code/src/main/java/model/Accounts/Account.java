@@ -1,8 +1,9 @@
 package model.Accounts;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import model.Commande;
 
 import java.util.UUID;
+
 public class Account {
     private final String idAccount;
     private String firstName;
@@ -14,7 +15,7 @@ public class Account {
     private String accountType;
 
     // Constructor
-    public  Account() {
+    public Account() {
         this.idAccount = UUID.randomUUID().toString();
         this.firstName = "unknown";
         this.lastName = "unknown";
@@ -25,9 +26,10 @@ public class Account {
         this.accountType = "unknown";
 
     }
+
     public Account(String firstName, String lastName, String email,
                    String password, String phoneNumber, String domain, String accountType) {
-        this.idAccount=UUID.randomUUID().toString();
+        this.idAccount = UUID.randomUUID().toString();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -37,20 +39,16 @@ public class Account {
         this.accountType = accountType;
     }
 
-    public  Account(String idAccount, String email , String password,String accountType) {
+    public Account(String idAccount, String email, String password, String accountType) {
         this.idAccount = idAccount;
         this.email = email;
         this.password = password;
         this.accountType = accountType;
     }
 
-    public String getIdAccount() {
-        return idAccount;
-    }
-
     public Account(String idAccount, String firstName, String lastName, String email,
                    String password, String phoneNumber, String domain, String accountType) {
-        this.idAccount= idAccount;
+        this.idAccount = idAccount;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -58,6 +56,10 @@ public class Account {
         this.phoneNumber = phoneNumber;
         this.domain = domain;
         this.accountType = accountType;
+    }
+
+    public String getIdAccount() {
+        return idAccount;
     }
 
     public void editAccount(Account updatedAccount) {
@@ -123,22 +125,16 @@ public class Account {
     public String getAccountType() {
         return accountType;
     }
-    @JsonIgnore
-    public boolean isAdmin(){
-
-        return  accountType.equals("admin");
-    }
-    @JsonIgnore
-    public boolean isAuditor(){
-        return  accountType.equals("auditor");
-    }
-
 
     public void setAccountType(String accountType) {
         this.accountType = accountType;
     }
 
+    @JsonIgnore
+    public boolean isAdmin() {
 
+        return accountType.equals("admin");
+    }
 
     @Override
     public String toString() {
@@ -158,13 +154,13 @@ public class Account {
     public String getString() {
         return
                 ", idAccount='" + idAccount + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", domain='" + domain + '\'' +
-                ", accountType='" + accountType + '\''
+                        ", firstName='" + firstName + '\'' +
+                        ", lastName='" + lastName + '\'' +
+                        ", email='" + email + '\'' +
+                        ", password='" + password + '\'' +
+                        ", phoneNumber='" + phoneNumber + '\'' +
+                        ", domain='" + domain + '\'' +
+                        ", accountType='" + accountType + '\''
                 ;
     }
 }

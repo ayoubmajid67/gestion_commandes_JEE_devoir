@@ -10,9 +10,9 @@ public interface IFormDialogEventHandler {
     void save(FormDialog formDialog);
 
 
-    default void cancel(Dialog dialog){
+    default void cancel(Dialog dialog) {
         System.out.println("The Form dialog closed with success");
-         dialog.dispose();
+        dialog.dispose();
     }
 
 }

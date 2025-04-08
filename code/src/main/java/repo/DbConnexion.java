@@ -8,10 +8,6 @@ public class DbConnexion {
 
     private Connection connection;
 
-    public Connection getConnection() {
-        return connection;
-    }
-
     public DbConnexion() {
         try {
 
@@ -33,6 +29,10 @@ public class DbConnexion {
             // Exit the program if the connection fails
             System.exit(1);
         }
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 
     // Method to close the database connection

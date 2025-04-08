@@ -1,18 +1,13 @@
 package utils;
+
+import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.*;
+import model.Accounts.AccountToken;
+import model.Compte;
 
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.Optional;
-
-import io.github.cdimascio.dotenv.Dotenv;
-
-import model.Accounts.AccountToken;
-
-import io.jsonwebtoken.Jwts;
-import model.Compte;
-
-
 
 import static utils.ControllersGetter.accountsRepo;
 
@@ -28,11 +23,11 @@ public class TokenHandler {
                 .setSubject(idAccount)
                 .claim("accountType", accountType)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 *24)) // 24 hour expiration
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 24 hour expiration
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
 
-        return new AccountToken(idAccount, accountType,token);
+        return new AccountToken(idAccount, accountType, token);
     }
 
 
@@ -44,13 +39,14 @@ public class TokenHandler {
             String accountType = claims.get("accountType", String.class); // Extract accountType from claims
 
 
-            return new AccountToken(idAccount, accountType,token);
+            return new AccountToken(idAccount, accountType, token);
 
         } catch (JwtException e) {
             System.out.println("Invalid or expired token.");
             return null;
         }
     }
+
     public static boolean checkToken(String token) {
         try {
             // Parse the token and verify its signature
@@ -58,32 +54,26 @@ public class TokenHandler {
 
             // Check if the account exists
 
-            boolean accountExists=false;
+            boolean accountExists = false;
             try {
-
 
 
                 Optional<Compte> account = accountsRepo.getCompteById(accountToken.getIdAccountToken());
 
 
-                if(account.isPresent()) {
-                    System.out.println("Compte exists" + account.get().getCompteType() );
-                    System.out.println("Compte exists " + accountToken.getAccountType() );
+                if (account.isPresent()) {
+                    System.out.println("Compte exists" + account.get().getCompteType());
+                    System.out.println("Compte exists " + accountToken.getAccountType());
 
-                    if(!account.get().getCompteType().equals(accountToken.getAccountType()))  accountExists=false;
-
-                    else
-                    accountExists = true;
+                    accountExists = account.get().getCompteType().equals(accountToken.getAccountType());
                 }
-            }catch (SQLException e){
+            } catch (SQLException e) {
                 System.out.println(e.getMessage());
                 return false;
             }
 
 
-
-
-                return accountExists;
+            return accountExists;
 
 
         } catch (ExpiredJwtException e) {
@@ -109,7 +99,7 @@ public class TokenHandler {
         // Decrypt the token
         AccountToken decryptedToken = decryptToken(accountToken.getToken());
         if (decryptedToken != null) {
-            System.out.println("Decrypted Token: " + decryptedToken.toString());
+            System.out.println("Decrypted Token: " + decryptedToken);
         }
     }
 }

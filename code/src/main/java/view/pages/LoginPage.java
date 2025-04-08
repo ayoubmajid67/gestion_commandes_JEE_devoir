@@ -1,22 +1,38 @@
 package view.pages;
 
+import controller.uiControllers.LoginPageController;
+
 import javax.swing.*;
 import java.awt.*;
-import controller.uiControllers.LoginPageController;
 
 public class LoginPage extends JPanel {
     private final LoginPageController loginPageController;
+    Color primaryColor = new Color(41, 128, 185);  // Blue primary color
+    Color secondaryColor = new Color(52, 152, 219); // Lighter blue
+    Color accentColor = new Color(231, 76, 60);     // Red for logout
     private JButton loginButton;
     private JLabel welcomeLabel;
     private JTextField emailField;
     private JPasswordField passwordField;
-    Color primaryColor = new Color(41, 128, 185);  // Blue primary color
-    Color secondaryColor = new Color(52, 152, 219); // Lighter blue
-    Color accentColor = new Color(231, 76, 60);     // Red for logout
 
     public LoginPage() {
         setUpUi();
         loginPageController = new LoginPageController(this);
+    }
+
+    public static void main(String[] args) {
+        // Create a JFrame to display the LoginPage
+        JFrame frame = new JFrame("Login Page");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        frame.setLocationRelativeTo(null); // Center the frame
+
+        // Add the LoginPage panel to the frame
+        LoginPage loginPage = new LoginPage();
+        frame.add(loginPage);
+
+        // Display the frame
+        frame.setVisible(true);
     }
 
     void setUpUi() {
@@ -117,20 +133,5 @@ public class LoginPage extends JPanel {
 
     public JPasswordField getPasswordField() {
         return passwordField;
-    }
-
-    public static void main(String[] args) {
-        // Create a JFrame to display the LoginPage
-        JFrame frame = new JFrame("Login Page");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 400);
-        frame.setLocationRelativeTo(null); // Center the frame
-
-        // Add the LoginPage panel to the frame
-        LoginPage loginPage = new LoginPage();
-        frame.add(loginPage);
-
-        // Display the frame
-        frame.setVisible(true);
     }
 }

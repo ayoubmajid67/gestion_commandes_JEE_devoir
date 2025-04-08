@@ -32,6 +32,7 @@ public class TableConverterUtility {
 
         return tableData;
     }
+
     public static Object[][] convertToTableData(List<?> data, String[] columnNames) {
         if (data == null || data.isEmpty() || columnNames == null || columnNames.length == 0) {
             return new Object[0][0]; // Return empty array if input is invalid

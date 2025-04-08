@@ -1,4 +1,5 @@
 package model;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.text.ParseException;
@@ -7,10 +8,9 @@ import java.util.Date;
 import java.util.UUID;
 
 
-
 public class Commande {
     private static final SimpleDateFormat SDF = new SimpleDateFormat("dd/MM/yyyy");
-    private String id;
+    private final String id;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date date;
     private double montant;
@@ -24,10 +24,10 @@ public class Commande {
         this.idCompte = "unknown";
     }
 
-    public Commande(String idCommande, String date, double montant, String idCompte)  {
+    public Commande(String idCommande, String date, double montant, String idCompte) {
         this.id = idCommande;
         try {
-            this.date=SDF.parse(date);
+            this.date = SDF.parse(date);
 
         } catch (ParseException e) {
             throw new RuntimeException(e);
@@ -37,22 +37,25 @@ public class Commande {
         this.montant = montant;
         this.idCompte = idCompte;
     }
-    public Commande(String idCommande, Date date, double montant, String idCompte)  {
+
+    public Commande(String idCommande, Date date, double montant, String idCompte) {
         this.id = idCommande;
 
-            this.date=date;
-
+        this.date = date;
 
 
         this.montant = montant;
         this.idCompte = idCompte;
     }
+
+    public static Date parseDate(String dateStr) throws ParseException {
+        return SDF.parse(dateStr);
+    }
+
     public String dateToString() {
         return date != null ? SDF.format(date) : "N/A";
     }
-    public static Date parseDate(String dateStr) throws  ParseException {
-        return  SDF.parse(dateStr);
-    }
+
     public String getFormattedDate() {
         return SDF.format(date);
     }
@@ -66,6 +69,15 @@ public class Commande {
         return date;
     }
 
+    // Setters
+    public void setDate(Date date) {
+        if (date != null) {
+
+            this.date = date;
+
+        }
+    }
+
     public double getmontant() {
         return montant;
     }
@@ -74,14 +86,6 @@ public class Commande {
         return idCompte;
     }
 
-    // Setters
-    public void setDate(Date date) {
-        if (date != null) {
-
-               this.date= date;
-
-        }
-    }
     public void setMontant(double montant) {
         if (montant >= 0) {
             this.montant = montant;

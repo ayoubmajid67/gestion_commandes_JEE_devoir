@@ -2,8 +2,8 @@ package view.pages.AdminDashboard;
 
 import controller.uiControllers.adminDashboard.Tabs.AccountsManagementTabController;
 import model.Compte;
-import utils.TableConverterUtility;
 import utils.ControllersGetter;
+import utils.TableConverterUtility;
 import view.components.ButtonRenderer;
 import view.pages.UserDashboard.ButtonEditor;
 
@@ -16,24 +16,20 @@ import java.util.ArrayList;
 
 public class AccountsManagementTab extends JPanel {
 
-    private JButton createButton =new JButton("Create New Compte");
-    private ButtonRenderer buttonRenderer  = new ButtonRenderer();
+    private static final String[] columnNamesCreateEdit = {"Nom", "Email", "Password", "CompteType"};
+    Color primaryColor = new Color(41, 128, 185);  // Blue primary color
+    private final JButton createButton = new JButton("Create New Compte");
+    private ButtonRenderer buttonRenderer = new ButtonRenderer();
     private DefaultTableModel model;
     private JTable accountTable;
-    private ArrayList<Compte>   data=ControllersGetter.accountsRepo.getAccountsNoExp();
-
-    Color primaryColor = new Color(41, 128, 185);  // Blue primary color
-
-
-    private AccountsManagementTabController accountsManagementTabController;
-    private static String[] columnNamesCreateEdit = { "Nom", "Email", "Password", "CompteType"};
+    private ArrayList<Compte> data = ControllersGetter.accountsRepo.getAccountsNoExp();
+    private final AccountsManagementTabController accountsManagementTabController;
 
 
     public AccountsManagementTab() {
         accountsManagementTabController = new AccountsManagementTabController(this);
         setUpUi();
-        buttonRenderer=new ButtonRenderer();
-
+        buttonRenderer = new ButtonRenderer();
 
 
     }
@@ -49,6 +45,7 @@ public class AccountsManagementTab extends JPanel {
     public JButton getEditeButton() {
         return buttonRenderer.getEditButton();
     }
+
     public JButton getDeleteButton() {
         return buttonRenderer.getDeleteButton();
     }
@@ -78,20 +75,20 @@ public class AccountsManagementTab extends JPanel {
         // Add the button panel to the top of the tab
         this.add(buttonPanel, BorderLayout.NORTH);
 
-            // Define column names
-            String[] columnNames = {"Id", "Nom", "Email", "Password", "CompteType", "Actions"};
+        // Define column names
+        String[] columnNames = {"Id", "Nom", "Email", "Password", "CompteType", "Actions"};
 
-            Object[][] tableData = TableConverterUtility.convertToTableData(data, columnNames);
+        Object[][] tableData = TableConverterUtility.convertToTableData(data, columnNames);
 
 
         // Create and return the table model
         model = new DefaultTableModel(tableData, columnNames) {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    // Only the "Actions" column is editable
-                    return column == 5;
-                }
-            };
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Only the "Actions" column is editable
+                return column == 5;
+            }
+        };
 
         accountTable = new JTable(model);
         accountTable.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -153,21 +150,4 @@ public class AccountsManagementTab extends JPanel {
         accountTable.repaint();
     }
 
-
-
-
-    public static void main(String[] args) {
-        // Create a JFrame to display the AuditorManagementTab
-        JFrame frame = new JFrame("Auditor Management");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1024, 768);
-        frame.setLocationRelativeTo(null); // Center the frame
-
-        // Add the AuditorManagementTab panel to the frame
-        AccountsManagementTab accountsManagementTab = new AccountsManagementTab();
-        frame.add(accountsManagementTab);
-
-        // Display the frame
-        frame.setVisible(true);
-    }
 }

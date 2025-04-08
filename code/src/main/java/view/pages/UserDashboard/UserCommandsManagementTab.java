@@ -2,37 +2,32 @@ package view.pages.UserDashboard;
 
 import controller.uiControllers.UserDashboard.Tabs.UserCommandsManagementTabController;
 import model.Commande;
-import utils.TableConverterUtility;
 import utils.ControllersGetter;
+import utils.TableConverterUtility;
 import view.components.ButtonRenderer;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserCommandsManagementTab extends JPanel {
 
-    private JButton createButton = new JButton("Ajouter Nouvelle Commande");
-    private ButtonRenderer buttonRenderer = new ButtonRenderer();
+    private static final String[] columnNamesCreateEdit = {"Date", "Montant"};
+    Color primaryColor = new Color(41, 128, 185);  // Blue primary color
+    private final JButton createButton = new JButton("Ajouter Nouvelle Commande");
+    private final ButtonRenderer buttonRenderer = new ButtonRenderer();
     private DefaultTableModel model;
     private JTable commandTable;
     private List<Commande> data;
-
-
-    Color primaryColor = new Color(41, 128, 185);  // Blue primary color
-
-
-    private UserCommandsManagementTabController commandsManagementTabController;
-    private static String[] columnNamesCreateEdit = {"Date", "Montant"};
+    private final UserCommandsManagementTabController commandsManagementTabController;
 
     public UserCommandsManagementTab() {
 
         commandsManagementTabController = new UserCommandsManagementTabController(this);
         setUpUi();
-        data=ControllersGetter.CommandeRepo.getAllUserCommandesNoExp();
+        data = ControllersGetter.CommandeRepo.getAllUserCommandesNoExp();
         refreshTable();
 
 
@@ -40,6 +35,18 @@ public class UserCommandsManagementTab extends JPanel {
 
     public static String[] getColumnNamesCreateEdit() {
         return columnNamesCreateEdit;
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Commands Management");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1024, 768);
+        frame.setLocationRelativeTo(null);
+
+        UserCommandsManagementTab commandsTab = new UserCommandsManagementTab();
+        frame.add(commandsTab);
+
+        frame.setVisible(true);
     }
 
     public JButton getCreateButton() {
@@ -140,17 +147,5 @@ public class UserCommandsManagementTab extends JPanel {
 
         commandTable.addColumn(actionsColumn);
         commandTable.repaint();
-    }
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Commands Management");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1024, 768);
-        frame.setLocationRelativeTo(null);
-
-        UserCommandsManagementTab commandsTab = new UserCommandsManagementTab();
-        frame.add(commandsTab);
-
-        frame.setVisible(true);
     }
 }

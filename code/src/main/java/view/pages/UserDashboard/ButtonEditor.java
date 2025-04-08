@@ -7,33 +7,16 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ButtonEditor extends DefaultCellEditor {
-    private JPanel panel;
-    private JButton editButton;
-    private JButton deleteButton;
-    private JTable table;
+    Color secondaryColor = new Color(52, 152, 219); // Lighter blue
+    private final JPanel panel;
+    private final JButton editButton;
+    private final JButton deleteButton;
+    private final JTable table;
     private int currentRow;
-    private ButtonEditorController buttonEditorController;
+    private final ButtonEditorController buttonEditorController;
     private Object[] rowData;
     private String id;
 
-    Color secondaryColor = new Color(52, 152, 219); // Lighter blue
-
-
-    public Object[] getRowData() {
-        return rowData;
-    }
-
-
-    public JButton getEditButton() {
-        return editButton;
-    }
-
-    public JButton getDeleteButton() {
-        return deleteButton;
-    }
-    public String getId() {
-        return id;
-    }
 
     public ButtonEditor(JCheckBox checkBox, JTable table, IButtonEditorEventsHandler iButtonEditorEventsHandler) {
         super(checkBox);
@@ -67,17 +50,33 @@ public class ButtonEditor extends DefaultCellEditor {
         buttonEditorController = new ButtonEditorController(this, iButtonEditorEventsHandler);
     }
 
+    public Object[] getRowData() {
+        return rowData;
+    }
+
+    public JButton getEditButton() {
+        return editButton;
+    }
+
+    public JButton getDeleteButton() {
+        return deleteButton;
+    }
+
+    public String getId() {
+        return id;
+    }
+
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
         currentRow = row; // Store the current row index
 
         // Save the row data to the instance variable
 
-        rowData = new Object[table.getColumnCount()-1];
-        for (int col = 0; col < table.getColumnCount()-1; col++) {
-            rowData[col] = table.getModel().getValueAt(row, col+1);
+        rowData = new Object[table.getColumnCount() - 1];
+        for (int col = 0; col < table.getColumnCount() - 1; col++) {
+            rowData[col] = table.getModel().getValueAt(row, col + 1);
         }
-        id= (String)table.getModel().getValueAt(row, 0);
+        id = (String) table.getModel().getValueAt(row, 0);
 
         return panel; // Return the panel containing the buttons
     }

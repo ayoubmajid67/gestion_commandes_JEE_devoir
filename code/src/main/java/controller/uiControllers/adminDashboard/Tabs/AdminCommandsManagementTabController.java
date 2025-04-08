@@ -7,9 +7,9 @@ import utils.interfaces.objectConverter.CommandeConverter;
 import view.pages.AdminDashboard.AdminCommandsManagementTab;
 
 public class AdminCommandsManagementTabController {
-    private AdminCommandsManagementTab view;
-    private String[] columnNames = AdminCommandsManagementTab.getColumnNamesViewOnly();
-    private SaveUtil<Commande> saveUtil = new SaveUtil(new CommandeConverter());
+    private final AdminCommandsManagementTab view;
+    private final String[] columnNames = AdminCommandsManagementTab.getColumnNamesViewOnly();
+    private final SaveUtil<Commande> saveUtil = new SaveUtil(new CommandeConverter());
 
     public AdminCommandsManagementTabController(AdminCommandsManagementTab view) {
         this.view = view;

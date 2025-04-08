@@ -11,7 +11,7 @@ public class Admin extends Account {
     @Override
     public String toString() {
         return "Admin{" +
-              super.getString() +
+                super.getString() +
                 '}';
     }
 }

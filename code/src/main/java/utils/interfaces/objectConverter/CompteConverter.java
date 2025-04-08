@@ -6,7 +6,7 @@ import model.Compte;
 
 public class CompteConverter implements ObjectConverter<Compte> {
     @Override
-    public Compte convertObject(){
+    public Compte convertObject() {
         return new Compte();
     }
 }

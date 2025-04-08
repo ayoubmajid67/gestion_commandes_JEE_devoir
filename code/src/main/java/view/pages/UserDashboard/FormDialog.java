@@ -1,35 +1,51 @@
 package view.pages.UserDashboard;
 
 import controller.uiControllers.FormDialogController;
-
 import utils.interfaces.IFormDialogEventHandler;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+
 public class FormDialog extends JDialog {
-    private JButton saveButton = new JButton("Save");
-    private JButton cancelButton = new JButton("Cancel");
-    private FormDialogController formDialogController;
-
-
     Color secondaryColor = new Color(52, 152, 219); // Lighter blue
+    String id;
+    private final JButton saveButton = new JButton("Save");
+    private final JButton cancelButton = new JButton("Cancel");
+    private final FormDialogController formDialogController;
+    private final Map<String, String> formData = new HashMap<>();
+    private final Map<String, JTextField> fields = new HashMap<>();
+    public FormDialog(String title, String[] fieldNames, IFormDialogEventHandler iFormDialogEventHandler) {
+        super((JFrame) null, title, true); // Modal dialog
+        setUpUI(fieldNames, null);
+        formDialogController = new FormDialogController(this, iFormDialogEventHandler);
 
+        this.setVisible(true);
+    }
+
+    public FormDialog(String title, String[] fieldNames, Object[] data, IFormDialogEventHandler iFormDialogEventHandler, String id) {
+        super((JFrame) null, title, true); // Modal dialog
+        setUpUI(fieldNames, data);
+
+
+        this.id = id;
+
+
+        formDialogController = new FormDialogController(this, iFormDialogEventHandler);
+        this.setVisible(true);
+    }
 
     public String getId() {
         return id;
     }
-
-    String id;
-    private Map<String, String> formData = new HashMap<>();
-    private Map<String, JTextField> fields = new HashMap<>();
 
     public Map<String, String> getFormData() {
         collectFormData(); // Ensure data is collected before returning
 
         return formData;
     }
+
     public void collectFormData() {
         formData.clear();
         for (Map.Entry<String, JTextField> entry : fields.entrySet()) {
@@ -37,26 +53,6 @@ public class FormDialog extends JDialog {
             String fieldValue = entry.getValue().getText();
             formData.put(fieldName, fieldValue);
         }
-    }
-
-    public FormDialog(String title, String[] fieldNames, IFormDialogEventHandler iFormDialogEventHandler ) {
-        super((JFrame) null, title, true); // Modal dialog
-        setUpUI(fieldNames, null);
-        formDialogController = new FormDialogController(this, iFormDialogEventHandler);
-
-        this.setVisible(true);
-    }
-    public FormDialog(String title, String[] fieldNames, Object[] data, IFormDialogEventHandler iFormDialogEventHandler,String id) {
-        super((JFrame) null, title, true); // Modal dialog
-        setUpUI(fieldNames, data);
-
-
-        this.id=id;
-
-
-
-        formDialogController = new FormDialogController(this, iFormDialogEventHandler);
-        this.setVisible(true);
     }
 
     public JButton getSaveButton() {
@@ -133,6 +129,7 @@ public class FormDialog extends JDialog {
         // Add the form panel to the dialog
         add(formPanel, BorderLayout.CENTER);
     }
+
     public boolean validateForm() {
         for (Map.Entry<String, JTextField> entry : fields.entrySet()) {
             String fieldValue = entry.getValue().getText().trim();

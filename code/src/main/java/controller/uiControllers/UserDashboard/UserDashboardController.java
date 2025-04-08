@@ -9,16 +9,19 @@ import java.awt.event.ActionListener;
 public class UserDashboardController {
 
     UserDashboard view;
+
     public UserDashboardController(UserDashboard view) {
         this.view = view;
-        addAuditorDashboardEvents();
+        addUserDashboardEvents();
     }
-    public void addAuditorDashboardEvents(){
+
+    public void addUserDashboardEvents() {
 
         addLogoutEvent();
 
     }
-    public  void addLogoutEvent(){
+
+    public void addLogoutEvent() {
         this.view.getLogoutButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -29,8 +32,6 @@ public class UserDashboardController {
             }
         });
     }
-
-
 
 
 }
