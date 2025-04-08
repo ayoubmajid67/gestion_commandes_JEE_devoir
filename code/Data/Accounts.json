@@ -1,0 +1,62 @@
+[
+  {
+    "idAccount": "559hbf2c-16f6-463a-ae72-05ab7655c120",
+    "firstName": "Salma",
+    "lastName": "sa",
+    "email": "salmaadmin@gmail.com",
+    "password": "admin",
+    "phoneNumber": "0675849400",
+    "domain": "the admin of the application",
+    "accountType": "admin"
+  },
+  {
+    "idAccount": "SDK1213E",
+    "firstName": "Ayoub",
+    "lastName": "Majjid",
+    "email": "admin@gmail.com",
+    "password": "admin",
+    "phoneNumber": "0771798765",
+    "domain": "the admin of the application",
+    "accountType": "admin"
+  },
+  {
+    "idAccount": "448fbf2c-16f6-463a-ae72-05ab7655c120",
+    "firstName": "Amine",
+    "lastName": "Naji",
+    "email": "auditor@gmail.com",
+    "password": "auditor",
+    "phoneNumber": "0771798765",
+    "domain": "environmental audits",
+    "accountType": "auditor"
+  },
+  {
+    "idAccount": "e92b2458-3f56-4e5b-a462-3b27b0159c15",
+    "firstName": "Sara",
+    "lastName": "Elhadi",
+    "email": "sara.elhadi@gmail.com",
+    "password": "sara123",
+    "phoneNumber": "0781122334",
+    "domain": "environmental audits",
+    "accountType": "auditor"
+  },
+  {
+    "idAccount": "32bfadc1-d2c9-42fe-b678-234b0a5e21f8",
+    "firstName": "Khaled",
+    "lastName": "Benkhaled",
+    "email": "khaled.benkhaled@gmail.com",
+    "password": "khaled456",
+    "phoneNumber": "0791234567",
+    "domain": "financial audits",
+    "accountType": "auditor"
+  },
+  {
+    "idAccount": "b3246c7f-2fe4-4f82-9d4f-59f7be182d27",
+    "firstName": "Layla",
+    "lastName": "Sahli",
+    "email": "layla.sahli@gmail.com",
+    "password": "layla789",
+    "phoneNumber": "0774657890",
+    "domain": "quality control audits",
+    "accountType": "auditor"
+  }
+]
