@@ -6,7 +6,7 @@
 
 ![App Interface](./main.png)
 
-- 🔗 [Project Repository](https://github.com/ayoubmajid67/gestion_commandes_JEE_devoir.git)
+- 🔗 [Linkedin post](https://www.linkedin.com/posts/youbista_java-swing-jdbc-activity-7315219462033453056-Jxw9?utm_source=share&utm_medium=member_desktop&rcm=ACoAADvjKzABpK_MLZWJYvsh4MHCymLEb8DcykI)
 
 This project is a **Client and Order Management System** designed to allow efficient tracking and handling of clients and orders. Developed in **Java** with a **Swing-based GUI**, it connects to a **MySQL** database using **JDBC**, supporting essential CRUD operations with an intuitive interface.
 
